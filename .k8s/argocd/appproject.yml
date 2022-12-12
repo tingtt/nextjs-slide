@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: nextjs-slide
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  description: https://github.com/tingtt/nextjs-slide
+  destinations:
+    - name: '*'
+      namespace: 'slide'
+      server: '*'
+  sourceRepos:
+    - https://github.com/tingtt/nextjs-slide.git

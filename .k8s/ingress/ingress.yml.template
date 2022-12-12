@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-BRANCH
+  labels:
+    name: ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  tls:
+    - hosts:
+        - slidev.tingtt.jp
+      secretName: ingress-nginx-tls-secret
+  rules:
+    - host: slidev.tingtt.jp
+      http:
+        paths:
+          - path: '/BRANCH(/|$)(.*)'
+            pathType: Prefix
+            backend:
+              service:
+                name: slidev-BRANCH
+                port:
+                  number: 80

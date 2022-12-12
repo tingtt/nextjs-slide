@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextjs-slide-BRANCH
+  namespace: argocd
+spec:
+  destination:
+    namespace: slide
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: .k8s
+    repoURL: 'https://github.com/tingtt/nextjs-slide.git'
+    targetRevision: BRANCH
+  project: nextjs-slide
+  syncPolicy:
+    automated: {}
