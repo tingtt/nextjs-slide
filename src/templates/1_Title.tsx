@@ -30,6 +30,9 @@ export const Title = () => {
           setOpenInFull={setOpenInFull}
           openMenu={openMenu}
           setOpenMenu={setOpenMenu}
+          isPlaying={false}
+          play={() => {}}
+          pause={() => {}}
         />
       </div>
     </div>

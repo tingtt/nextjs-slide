@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { RecoilRoot } from 'recoil'
+import { useLayoutUtil } from '../../domain/model/Theme/layout'
+import { PropsWithChildren } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,8 +14,23 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel='icon' href='/favicon.svg' />
       </Head>
       <RecoilRoot>
-        <Component {...pageProps} />
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </RecoilRoot>
+    </div>
+  )
+}
+
+const ThemeProvider = ({ children }: PropsWithChildren) => {
+  const { isDark } = useLayoutUtil()
+
+  return (
+    <div
+      data-theme={isDark() ? 'dark' : 'light'}
+      className={isDark() ? 'dark' : 'light'}
+    >
+      {children}
     </div>
   )
 }

@@ -8,11 +8,19 @@ export type LayoutState = {
   width: number
   height: number
   isDarkMode: boolean
+  isForceLightMode: boolean
+  isForceDarkMode: boolean
 }
 
 const layoutState = atom<LayoutState>({
   key: 'layoutState',
-  default: { width: 960, height: 540, isDarkMode: false },
+  default: {
+    width: 960,
+    height: 540,
+    isDarkMode: false,
+    isForceLightMode: false,
+    isForceDarkMode: false,
+  },
   effects_UNSTABLE: [persistAtom],
 })
 
@@ -30,6 +38,7 @@ export const useLayout = (): [
     // UI theme
     setLayoutState((e) => {
       return {
+        ...e,
         width: window.innerWidth,
         height: window.innerHeight,
         isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
@@ -41,11 +50,53 @@ export const useLayout = (): [
 
   return [
     isInitial === true
-      ? { width: 960, height: 540, isDarkMode: false }
+      ? {
+          width: 960,
+          height: 540,
+          isDarkMode: false,
+          isForceLightMode: false,
+          isForceDarkMode: false,
+        }
       : layout,
     useCallback(
       (layoutState: LayoutState) => setLayoutState(layoutState),
       [setLayoutState]
     ),
   ]
+}
+
+export const useLayoutUtil = () => {
+  const [layout, setLayout] = useLayout()
+
+  const toggle = () => {
+    if (layout.isForceLightMode) {
+      setLayout({
+        ...layout,
+        isForceLightMode: false,
+        isForceDarkMode: true,
+      })
+    } else if (layout.isForceDarkMode) {
+      setLayout({
+        ...layout,
+        isForceLightMode: true,
+        isForceDarkMode: false,
+      })
+    } else if (layout.isDarkMode) {
+      setLayout({ ...layout, isForceLightMode: true })
+    } else {
+      setLayout({ ...layout, isForceDarkMode: true })
+    }
+  }
+
+  const isDark = () => {
+    if (layout.isForceLightMode) {
+      return false
+    }
+    if (layout.isForceDarkMode) {
+      return true
+    }
+    return layout.isDarkMode
+  }
+
+  return { toggle, isDark }
 }

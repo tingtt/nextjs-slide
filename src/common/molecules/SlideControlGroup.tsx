@@ -6,13 +6,22 @@ import { ButtonToggleGrid } from 'common/atoms/ButtonToggleGrid'
 import { ButtonToggleTheme } from 'common/atoms/ButtonToggleTheme'
 import { Divider } from 'common/atoms/Divider'
 import { Dispatch, SetStateAction } from 'react'
+import { SlideControlSlideShowDropdown } from './SlideControlSlideShowDropdown'
 
 export const SlideControlGroup = ({
+  isPlaying,
+  play,
+  pause,
+
   openInFull,
   setOpenInFull,
   openMenu,
   setOpenMenu,
 }: {
+  isPlaying: boolean
+  play: () => void
+  pause: () => void
+
   openInFull: boolean
   setOpenInFull: Dispatch<SetStateAction<boolean>>
   openMenu: boolean
@@ -49,17 +58,25 @@ export const SlideControlGroup = ({
       />
       <Divider orientation={'horizontal'} />
       <ButtonToggleTheme
-        dark={false}
-        onClick={() => {
+        onClickCallback={() => {
           setOpenMenu(false)
         }}
       />
-      <ButtonPlay
-        playing={false}
-        playOnClick={() => {}}
-        menuOpen={openMenu}
-        setMenuOpen={setOpenMenu}
-      />
+      <div className='dropdown dropdown-top'>
+        <ButtonPlay
+          isPlaying={isPlaying}
+          onClick={() => {
+            setOpenMenu(!openMenu)
+          }}
+        />
+        <SlideControlSlideShowDropdown
+          isPlaying={isPlaying}
+          playOnClick={play}
+          pauseOnClick={pause}
+          menuOpen={openMenu}
+          setMenuOpen={setOpenMenu}
+        />
+      </div>
     </div>
   )
 }
