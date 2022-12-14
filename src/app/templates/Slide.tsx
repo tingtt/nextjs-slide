@@ -2,7 +2,7 @@ import { SlideContainer } from 'app/atoms/SlideContainer'
 import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
 import { useState } from 'react'
 
-export const Title = () => {
+export const Slide = ({ content }: { content: JSX.Element }) => {
   const [openInFull, setOpenInFull] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
 
@@ -13,11 +13,7 @@ export const Title = () => {
         flex flex-col items-center justify-center
       `}
     >
-      <SlideContainer>
-        <div className='flex h-full items-center'>
-          <div className='text-9xl font-light'>Title</div>
-        </div>
-      </SlideContainer>
+      <SlideContainer>{content}</SlideContainer>
       <div
         className={`
           absolute bottom-2 left-4

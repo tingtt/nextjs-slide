@@ -7,7 +7,7 @@ import { PropsWithChildren } from 'react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className='font-sans bg-base-200'>
+    <div>
       <Head>
         <title>nextjs-slide</title>
         <meta name='description' content='Web slide on nextjs' />
@@ -28,7 +28,7 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
   return (
     <div
       data-theme={isDark() ? 'dark' : 'light'}
-      className={isDark() ? 'dark' : 'light'}
+      className={`${isDark() ? 'dark' : 'light'} bg-base-200`}
     >
       {children}
     </div>
