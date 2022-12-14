@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { sleep } from '../../../domain/model/Util/sleep'
 import { useSlideShowLoop } from '../../../domain/model/Slide/slideShow'
-import { SvgChecked } from 'common/atoms/SvgChecked'
+import { SvgChecked } from 'app/atoms/SvgChecked'
 
 export const SlideControlSlideShowDropdown = ({
   isPlaying,

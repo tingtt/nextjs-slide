@@ -1,5 +1,5 @@
-import { SlideContainer } from 'common/atoms/SlideContainer'
-import { SlideControlGroup } from 'common/molecules/SlideControlGroup'
+import { SlideContainer } from 'app/atoms/SlideContainer'
+import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
 import { useState } from 'react'
 
 export const Title = () => {
