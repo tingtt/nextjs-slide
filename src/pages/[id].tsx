@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
-import { SlideContent } from 'slides'
+import { Slides } from 'slides'
 import { Slide } from 'app/templates/Slide'
 import {
   getServerSideProps,
@@ -8,32 +8,36 @@ import {
 } from '../../domain/model/Slide/pageCount'
 import { useEffect } from 'react'
 
-type Slide = React.ReactNode
-
 const useSlides = (router: NextRouter) => {
-  const pageNum = router.query['id']
+  const page = router.query['id']
   useEffect(() => {
-    if (typeof pageNum != 'string' || isNaN(+pageNum)) {
+    if (
+      typeof page != 'string' ||
+      isNaN(+page) ||
+      +page < 1 ||
+      +page > Slides.length
+    ) {
       router.push('/1').then(router.reload)
+      return
     }
   })
-  if (typeof pageNum != 'string') {
-    return { number: null, content: null }
+  if (typeof page != 'string') {
+    return { page: null, content: [] }
   }
-  if (isNaN(+pageNum)) {
-    return { number: null, content: null }
+  if (isNaN(+page)) {
+    return { page: null, content: [] }
   }
-  return { number: +pageNum, content: <SlideContent page={+pageNum} /> }
+  return { page: +page, slides: Slides }
 }
 
 const SlidePage: NextPage<PropsPageCount> = ({ pageCount }) => {
   const router = useRouter()
-  const { number, content } = useSlides(router)
+  const { page, slides } = useSlides(router)
 
-  if (number == null) {
+  if (page == null) {
     return <></>
   }
-  return <Slide content={content} />
+  return <Slide page={page} slides={slides} />
 }
 
 export { getServerSideProps }

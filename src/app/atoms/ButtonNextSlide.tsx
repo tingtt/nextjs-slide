@@ -8,7 +8,18 @@ export const ButtonNextSlide = ({
   disabled?: boolean
   onClick?: () => void
 }) => (
-  <ButtonGhostSquare onClick={onClick} disabled={disabled}>
-    <SvgArrow width={24} height={24} orientation={'right'} />
+  <ButtonGhostSquare
+    onClick={() => {
+      if (onClick == undefined || disabled) return
+      onClick()
+    }}
+    className={disabled ? 'no-animation hover:!bg-base-100' : ''}
+  >
+    <SvgArrow
+      width={24}
+      height={24}
+      orientation={'right'}
+      className={disabled ? 'opacity-20' : ''}
+    />
   </ButtonGhostSquare>
 )

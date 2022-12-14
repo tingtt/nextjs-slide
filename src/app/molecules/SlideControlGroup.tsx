@@ -9,23 +9,37 @@ import { Dispatch, SetStateAction } from 'react'
 import { SlideControlSlideShowDropdown } from './SlideControlSlideShowDropdown'
 
 export const SlideControlGroup = ({
-  isPlaying,
-  play,
-  pause,
-
   openInFull,
   setOpenInFull,
   openMenu,
   setOpenMenu,
-}: {
-  isPlaying: boolean
-  play: () => void
-  pause: () => void
 
+  previous,
+  isFirst,
+  next,
+  isEnd,
+
+  toggleGrid,
+
+  isPlaying,
+  play,
+  pause,
+}: {
   openInFull: boolean
   setOpenInFull: Dispatch<SetStateAction<boolean>>
   openMenu: boolean
   setOpenMenu: Dispatch<SetStateAction<boolean>>
+
+  previous: () => void
+  isFirst: boolean
+  next: () => void
+  isEnd: boolean
+
+  toggleGrid: () => void
+
+  isPlaying: boolean
+  play: () => void
+  pause: () => void
 }) => {
   return (
     <div
@@ -44,16 +58,21 @@ export const SlideControlGroup = ({
       <ButtonPreviousSlide
         onClick={() => {
           setOpenMenu(false)
+          previous()
         }}
+        disabled={isFirst}
       />
       <ButtonNextSlide
         onClick={() => {
           setOpenMenu(false)
+          next()
         }}
+        disabled={isEnd}
       />
       <ButtonToggleGrid
         onClick={() => {
           setOpenMenu(false)
+          toggleGrid()
         }}
       />
       <Divider orientation={'horizontal'} />

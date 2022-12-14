@@ -1,10 +1,20 @@
 import { SlideContainer } from 'app/atoms/SlideContainer'
 import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-export const Slide = ({ content }: { content: JSX.Element }) => {
+export const Slide = ({
+  page: initialPage,
+  slides,
+}: {
+  page: number
+  slides: JSX.Element[]
+}) => {
+  const router = useRouter()
   const [openInFull, setOpenInFull] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
+
+  const [page, setPage] = useState(initialPage)
 
   return (
     <div
@@ -13,7 +23,7 @@ export const Slide = ({ content }: { content: JSX.Element }) => {
         flex flex-col items-center justify-center
       `}
     >
-      <SlideContainer>{content}</SlideContainer>
+      <SlideContainer>{slides[page - 1]}</SlideContainer>
       <div
         className={`
           absolute bottom-2 left-4
@@ -26,6 +36,23 @@ export const Slide = ({ content }: { content: JSX.Element }) => {
           setOpenInFull={setOpenInFull}
           openMenu={openMenu}
           setOpenMenu={setOpenMenu}
+          previous={() => {
+            if (page == 1) {
+              return
+            }
+            router.replace('/' + (page - 1).toString())
+            setPage(page - 1)
+          }}
+          isFirst={page == 1}
+          next={() => {
+            if (page == slides.length) {
+              return
+            }
+            router.replace('/' + (page + 1).toString())
+            setPage(page + 1)
+          }}
+          isEnd={page == slides.length}
+          toggleGrid={() => {}}
           isPlaying={false}
           play={() => {}}
           pause={() => {}}

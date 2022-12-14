@@ -5,7 +5,7 @@ import { Summary } from 'slides/pages/Summary'
 import { End } from './pages/End'
 
 // eslint-disable-next-line react/jsx-key
-const Slides: JSX.Element[] = [<Title />, <Summary />, <End />]
+export const Slides: JSX.Element[] = [<Title />, <Summary />, <End />]
 
 export const SlideContent = ({ page }: { page: number }) => {
   const router = useRouter()
