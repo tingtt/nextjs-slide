@@ -1,6 +1,8 @@
+import { GetStaticProps } from 'next'
+
 export type PropsPageCount = { pageCount: number }
 
-export async function getStaticProps(): Promise<{ props: PropsPageCount }> {
+export const getStaticProps: GetStaticProps<PropsPageCount> = async () => {
   const glob = require('glob')
   const files = glob.sync('./src/pages/*.tsx')
   var pageCount = 0
