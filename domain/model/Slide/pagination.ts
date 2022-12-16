@@ -1,5 +1,5 @@
 import { NextRouter } from 'next/router'
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const usePagination = (
   initialPage: number,
@@ -8,25 +8,28 @@ export const usePagination = (
 ) => {
   const [page, setPage] = useState(initialPage)
 
-  const previous = () => {
-    if (page == 1) {
-      return
-    }
-    router.replace('/' + (page - 1).toString())
-    setPage(page - 1)
-  }
+  const previous = () =>
+    setPage((c) => {
+      if (c == 1) {
+        return c
+      }
+      router.replace('/' + (c - 1).toString())
+      return c - 1
+    })
 
-  const next = () => {
-    if (page == slides.length) {
-      return
-    }
-    router.replace('/' + (page + 1).toString())
-    setPage(page + 1)
-  }
+  const next = () =>
+    setPage((c) => {
+      if (c == slides.length) {
+        return c
+      }
+      router.replace('/' + (c + 1).toString())
+      return c + 1
+    })
 
+  // 'keydown' event listener to paginate slide
   const keydown = useCallback(
-    (e: { key: string }) => {
-      if (e.key === 'ArrowLeft') {
+    (e: { key: string; shiftKey: boolean }) => {
+      if (e.key === 'ArrowLeft' || (e.key === 'Enter' && e.shiftKey)) {
         setPage((c) => {
           if (c == 1) {
             return c
@@ -35,7 +38,7 @@ export const usePagination = (
           return c - 1
         })
       }
-      if (e.key === 'ArrowRight') {
+      if (e.key === 'ArrowRight' || (e.key === 'Enter' && !e.shiftKey)) {
         setPage((c) => {
           if (c == slides.length) {
             return c
