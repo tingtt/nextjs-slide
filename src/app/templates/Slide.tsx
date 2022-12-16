@@ -1,7 +1,9 @@
 import { SlideContainer } from 'app/atoms/SlideContainer'
 import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useFullScreen } from '../../../domain/model/Slide/fullscreen'
+import { usePagination } from '../../../domain/model/Slide/pagination'
 
 export const Slide = ({
   page: initialPage,
@@ -14,32 +16,13 @@ export const Slide = ({
   const [fullScreen, setFullScreen] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
 
-  const [page, setPage] = useState(initialPage)
+  const { slide, previous, isFirst, next, isEnd } = usePagination(
+    initialPage,
+    router,
+    slides
+  )
 
-  const toggleFullScreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-    } else {
-      document.body.requestFullscreen()
-    }
-  }
-
-  const keydown = useCallback((e: { key: string }) => {
-    if (e.key === 'f') {
-      toggleFullScreen()
-    }
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('keydown', keydown, false)
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
-        setFullScreen(true)
-      } else {
-        setFullScreen(false)
-      }
-    })
-  }, [keydown])
+  const { toggle: toggleFullScreen } = useFullScreen(setFullScreen)
 
   return (
     <div
@@ -48,7 +31,7 @@ export const Slide = ({
         flex flex-col items-center justify-center
       `}
     >
-      <SlideContainer>{slides[page - 1]}</SlideContainer>
+      <SlideContainer>{slide}</SlideContainer>
       <div
         className={`
           absolute bottom-2 left-4
@@ -61,22 +44,10 @@ export const Slide = ({
           toggleFullScreen={toggleFullScreen}
           openMenu={openMenu}
           setOpenMenu={setOpenMenu}
-          previous={() => {
-            if (page == 1) {
-              return
-            }
-            router.replace('/' + (page - 1).toString())
-            setPage(page - 1)
-          }}
-          isFirst={page == 1}
-          next={() => {
-            if (page == slides.length) {
-              return
-            }
-            router.replace('/' + (page + 1).toString())
-            setPage(page + 1)
-          }}
-          isEnd={page == slides.length}
+          previous={previous}
+          isFirst={isFirst}
+          next={next}
+          isEnd={isEnd}
           toggleGrid={() => {}}
           isPlaying={false}
           play={() => {}}

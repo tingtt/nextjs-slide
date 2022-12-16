@@ -2,10 +2,6 @@ import { NextPage } from 'next'
 import { NextRouter, useRouter } from 'next/router'
 import { Slides } from 'slides'
 import { Slide } from 'app/templates/Slide'
-import {
-  getServerSideProps,
-  PropsPageCount,
-} from '../../domain/model/Slide/pageCount'
 import { useEffect } from 'react'
 
 const useSlides = (router: NextRouter) => {
@@ -30,7 +26,7 @@ const useSlides = (router: NextRouter) => {
   return { page: +page, slides: Slides }
 }
 
-const SlidePage: NextPage<PropsPageCount> = ({ pageCount }) => {
+const SlidePage: NextPage = () => {
   const router = useRouter()
   const { page, slides } = useSlides(router)
 
@@ -40,6 +36,8 @@ const SlidePage: NextPage<PropsPageCount> = ({ pageCount }) => {
   return <Slide page={page} slides={slides} />
 }
 
-export { getServerSideProps }
+export const getServerSideProps = async () => {
+  return { props: {} }
+}
 
 export default SlidePage
