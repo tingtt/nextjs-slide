@@ -50,10 +50,6 @@ export const Slide = ({
           isFirst={isFirst}
           next={next}
           isEnd={isEnd}
-          toggleGrid={() => {}}
-          isPlaying={false}
-          play={() => {}}
-          pause={() => {}}
         />
       </div>
     </div>

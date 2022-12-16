@@ -19,12 +19,6 @@ export const SlideControlGroup = ({
   isFirst,
   next,
   isEnd,
-
-  toggleGrid,
-
-  isPlaying,
-  play,
-  pause,
 }: {
   openInFull: boolean
   toggleFullScreen: () => void
@@ -37,11 +31,11 @@ export const SlideControlGroup = ({
   next: () => void
   isEnd: boolean
 
-  toggleGrid: () => void
+  // toggleGrid: () => void
 
-  isPlaying: boolean
-  play: () => void
-  pause: () => void
+  // isPlaying: boolean
+  // play: () => void
+  // pause: () => void
 }) => {
   return (
     <div
@@ -66,19 +60,21 @@ export const SlideControlGroup = ({
         }}
         disabled={isEnd}
       />
-      <ButtonToggleGrid
+      {/* TODO: Add slide grid view toggle */}
+      {/* <ButtonToggleGrid
         onClick={() => {
           setOpenMenu(false)
           toggleGrid()
         }}
-      />
+      /> */}
       <Divider orientation={'horizontal'} />
       <ButtonToggleTheme
         onClickCallback={() => {
           setOpenMenu(false)
         }}
       />
-      <div className='dropdown dropdown-top'>
+      {/* TODO: Add controls control slide show (auto pagination) */}
+      {/* <div className='dropdown dropdown-top'>
         <ButtonPlay
           isPlaying={isPlaying}
           onClick={() => {
@@ -92,7 +88,7 @@ export const SlideControlGroup = ({
           menuOpen={openMenu}
           setMenuOpen={setOpenMenu}
         />
-      </div>
+      </div> */}
     </div>
   )
 }
