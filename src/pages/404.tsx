@@ -14,7 +14,7 @@ const Custom404: NextPage = () => {
       <div
         className={`
           flex items-center h-12 text-2xl font-medium
-          pr-[23px] border-r-[1px] border-black/30
+          pr-[23px] border-r-[1px] border-black/30 dark:border-base-content
         `}
       >
         404
