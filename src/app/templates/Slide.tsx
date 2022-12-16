@@ -1,7 +1,7 @@
 import { SlideContainer } from 'app/atoms/SlideContainer'
 import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFullScreen } from '../../../domain/model/Slide/fullscreen'
 import { usePagination } from '../../../domain/model/Slide/pagination'
 
@@ -16,11 +16,13 @@ export const Slide = ({
   const [fullScreen, setFullScreen] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
 
-  const { slide, previous, isFirst, next, isEnd } = usePagination(
-    initialPage,
-    router,
-    slides
-  )
+  const { slide, previous, isFirst, next, isEnd, keydownEventListener } =
+    usePagination(initialPage, router, slides)
+  useEffect(() => {
+    window.addEventListener('keydown', keydownEventListener, false)
+    //* NOTE: add keydown event listener only once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { toggle: toggleFullScreen } = useFullScreen(setFullScreen)
 
