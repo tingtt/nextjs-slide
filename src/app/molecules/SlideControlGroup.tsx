@@ -10,7 +10,8 @@ import { SlideControlSlideShowDropdown } from './SlideControlSlideShowDropdown'
 
 export const SlideControlGroup = ({
   openInFull,
-  setOpenInFull,
+  toggleFullScreen,
+
   openMenu,
   setOpenMenu,
 
@@ -26,7 +27,8 @@ export const SlideControlGroup = ({
   pause,
 }: {
   openInFull: boolean
-  setOpenInFull: Dispatch<SetStateAction<boolean>>
+  toggleFullScreen: () => void
+
   openMenu: boolean
   setOpenMenu: Dispatch<SetStateAction<boolean>>
 
@@ -49,12 +51,7 @@ export const SlideControlGroup = ({
         flex items-center p-2 gap-2
       `}
     >
-      <ButtonToggleFullScreen
-        open={openInFull}
-        onClick={() => {
-          setOpenInFull(!openInFull)
-        }}
-      />
+      <ButtonToggleFullScreen open={openInFull} onClick={toggleFullScreen} />
       <ButtonPreviousSlide
         onClick={() => {
           setOpenMenu(false)

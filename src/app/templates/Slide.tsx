@@ -1,7 +1,7 @@
 import { SlideContainer } from 'app/atoms/SlideContainer'
 import { SlideControlGroup } from 'app/molecules/SlideControlGroup'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 export const Slide = ({
   page: initialPage,
@@ -11,10 +11,35 @@ export const Slide = ({
   slides: JSX.Element[]
 }) => {
   const router = useRouter()
-  const [openInFull, setOpenInFull] = useState(false)
+  const [fullScreen, setFullScreen] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
 
   const [page, setPage] = useState(initialPage)
+
+  const toggleFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+    } else {
+      document.body.requestFullscreen()
+    }
+  }
+
+  const keydown = useCallback((e: { key: string }) => {
+    if (e.key === 'f') {
+      toggleFullScreen()
+    }
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('keydown', keydown, false)
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        setFullScreen(true)
+      } else {
+        setFullScreen(false)
+      }
+    })
+  }, [keydown])
 
   return (
     <div
@@ -32,8 +57,8 @@ export const Slide = ({
         `}
       >
         <SlideControlGroup
-          openInFull={openInFull}
-          setOpenInFull={setOpenInFull}
+          openInFull={fullScreen}
+          toggleFullScreen={toggleFullScreen}
           openMenu={openMenu}
           setOpenMenu={setOpenMenu}
           previous={() => {
