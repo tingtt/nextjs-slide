@@ -1,0 +1,39 @@
+{
+	"Title": {
+		"scope": "javascript,typescript",
+		"prefix": "h0",
+		"body":["<div className='text-${1:9xl} ${3:font-light}'>${2:Title}</div>"]
+	},
+	"Header": {
+		"scope": "javascript,typescript",
+		"prefix": "h1",
+		"body": [
+			"<div className='text-${1:7xl} $3'>$2</div>"
+		],
+	},
+	"List": {
+		"scope": "javascript,typescript",
+		"prefix": "ul",
+		"body": [
+			"<ul",
+			"  className={`",
+			"    list-disc list-inside space-y-${3:14} text-${1:6xl}",
+			"    [&>ul]:list-disc [&>ul]:list-inside [&>ul]:space-y-${4:12} [&>ul]:ml-${2:24}",
+			"  `}",
+			">",
+			"  <li>$0</li>",
+			"</ul>"
+		]
+	},
+	"layout-common": {
+		"scope": "javascript,typescript",
+		"prefix": "layout-common",
+		"body": [
+			"export const ${1:Slide} = () => (",
+			"  <div className='layout-common flex-col'>",
+			"    $0",
+			"  </div>",
+			")",
+		],
+	}
+}
