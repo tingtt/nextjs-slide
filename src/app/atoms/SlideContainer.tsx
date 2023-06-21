@@ -1,8 +1,10 @@
 import { PropsWithChildren } from 'react'
-import { useLayout } from '../../../domain/model/Theme/layout'
 
-export const SlideContainer = ({ children }: PropsWithChildren) => {
-  const [{ width, height }] = useLayout()
+export const SlideContainer = ({
+  width,
+  height,
+  children,
+}: PropsWithChildren & { width: number; height: number }) => {
   const isWide = width / height > 16 / 9
   const scale = isWide ? height / 1134 : width / 2016
   const style = `.slide-container { transform: scale(${scale}) }`

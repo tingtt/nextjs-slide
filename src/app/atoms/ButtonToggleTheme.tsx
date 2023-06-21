@@ -1,25 +1,19 @@
 import { ButtonGhostSquare } from './_ButtonGhostSquare'
 import { SvgMoon } from './SvgMoon'
 import { SvgSun } from './SvgSun'
-import { useLayoutUtil } from '../../../domain/model/Theme/layout'
+
+export type PropsButtonToggleTheme = {
+  isDarkMode: boolean
+  toggle: () => void
+}
 
 export const ButtonToggleTheme = ({
-  onClickCallback,
-}: {
-  onClickCallback?: () => void
-}) => {
-  const { toggle, isDark } = useLayoutUtil()
-
+  isDarkMode,
+  toggle,
+}: PropsButtonToggleTheme) => {
   return (
-    <ButtonGhostSquare
-      onClick={() => {
-        toggle()
-        if (onClickCallback != undefined) {
-          onClickCallback()
-        }
-      }}
-    >
-      {isDark() ? (
+    <ButtonGhostSquare onClick={() => toggle()}>
+      {isDarkMode ? (
         <SvgMoon width={24} height={24} />
       ) : (
         <SvgSun width={24} height={24} />
