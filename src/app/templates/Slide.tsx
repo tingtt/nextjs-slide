@@ -6,13 +6,16 @@ import { useFullScreen } from '../../../domain/model/Slide/fullscreen'
 import { usePagination } from '../../../domain/model/Slide/pagination'
 import { useLayout } from '../../../domain/model/Slide/layout'
 import { useTheme } from '../../../domain/model/Slide/theme'
+import { Slide } from '../../../domain/model/Slide/slide'
 
-export const Slide = ({
-  page: initialPage,
+export const TemplateSlide = ({
+  page,
+  click,
   slides,
 }: {
   page: number
-  slides: JSX.Element[]
+  click: number
+  slides: Slide[]
 }) => {
   const router = useRouter()
   const layout = useLayout(typeof window === 'undefined' ? undefined : window)
@@ -22,15 +25,19 @@ export const Slide = ({
   const [fullScreen, setFullScreen] = useState(false)
 
   const { slide, previous, isFirst, next, isEnd, keydownEventListener } =
-    usePagination(initialPage, router, slides)
+    usePagination({ page, click }, router, slides)
   useEffect(() => {
     window.addEventListener('keydown', keydownEventListener, false)
-    //* NOTE: add keydown event listener only once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return () => {
+      window.removeEventListener('keydown', keydownEventListener)
+    }
+  }, [keydownEventListener])
 
   const { toggle: toggleFullScreen } = useFullScreen(setFullScreen)
 
+  if (slide == undefined) {
+    return <></>
+  }
   return (
     <ThemeProvider isDarkMode={isDarkMode}>
       <div
@@ -40,7 +47,7 @@ export const Slide = ({
         `}
       >
         <SlideContainer width={layout.width} height={layout.height}>
-          {slide}
+          {slide.render()}
         </SlideContainer>
         <div
           className={`
