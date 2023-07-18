@@ -24,7 +24,7 @@ export const TemplateSlide = ({
   )
   const [fullScreen, setFullScreen] = useState(false)
 
-  const { slide, previous, isFirst, next, isEnd, keydownEventListener } =
+  const { slide, previous, isFirst, next, isEnd, keydownEventListener, style } =
     usePagination({ page, click }, router, slides)
   useEffect(() => {
     window.addEventListener('keydown', keydownEventListener, false)
@@ -48,6 +48,7 @@ export const TemplateSlide = ({
       >
         <SlideContainer width={layout.width} height={layout.height}>
           {slide.render()}
+          <style>{style}</style>
         </SlideContainer>
         <div
           className={`

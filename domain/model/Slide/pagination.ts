@@ -92,6 +92,44 @@ export const usePagination = (
     }
   }
 
+  const style = () => {
+    let max = 0
+    slides.forEach((s) => {
+      const c = s.clicks()
+      if (c > max) {
+        max = c
+      }
+    })
+    return [...Array(max)]
+      .map((_, i) => {
+        return [
+          `.click-hide-${max - i} { ${
+            click >= max - i
+              ? 'visibility: visible; animation: fadeout 0.1s linear forwards !important'
+              : 'visibility: visible !important'
+          } }`,
+          `.click-${i + 1} { ${
+            click >= i + 1
+              ? 'animation: fadein 0.25s linear forwards !important'
+              : 'visibility: hidden'
+          } }`,
+          `.click-only-${i + 1} { ${
+            click == i + 1
+              ? 'animation: fadein 0.25s linear forwards !important'
+              : 'animation: fadeout 0.1s linear forwards !important'
+          }; visibility: ${click <= i ? 'hidden' : 'visible'} !important }`,
+          `.click-hide-only-${max - i} { ${
+            click == max - i
+              ? 'animation: fadeout 0.1s linear forwards !important'
+              : click == max - i + 1
+              ? 'animation: fadein 0.25s linear forwards !important'
+              : ''
+          } }`,
+        ].join('\n')
+      })
+      .join('\n')
+  }
+
   return {
     slide: slides[page - 1] as Slide | undefined,
     previous,
@@ -99,5 +137,6 @@ export const usePagination = (
     next,
     isEnd: page == slides.length,
     keydownEventListener: keydown,
+    style: style(),
   }
 }
