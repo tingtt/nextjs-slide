@@ -11,7 +11,7 @@ export const SvgArrow = (
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
     className={`
-      fill-black dark:fill-white
+      fill-base-content
       ${props.orientation == 'left' && 'rotate-180'}
       ${props.orientation == 'top' && 'rotate-90'}
       ${props.orientation == 'bottom' && '-rotate-90'}

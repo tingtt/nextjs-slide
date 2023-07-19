@@ -11,7 +11,7 @@ export const SvgCloseFull = ({
     viewBox='0 0 44 44'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
-    className='fill-black dark:fill-white'
+    className='fill-base-content'
   >
     <g clipPath='url(#clip0_193_433)'>
       <path
