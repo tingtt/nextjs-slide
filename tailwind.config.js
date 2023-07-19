@@ -23,6 +23,10 @@ module.exports = {
         },
       },
     },
+    animation: {
+      controleler_fadein: 'fadein 0.1s linear forwards',
+      controleler_fadeout: 'fadeout 0.1s linear forwards',
+    },
     fontFamily: {
       sans: [
         '-apple-system',

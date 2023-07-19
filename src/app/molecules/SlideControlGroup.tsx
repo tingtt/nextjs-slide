@@ -1,42 +1,31 @@
 import { ButtonNextSlide } from 'app/atoms/ButtonNextSlide'
-import { ButtonPlay } from 'app/atoms/ButtonPlay'
 import { ButtonPreviousSlide } from 'app/atoms/ButtonPreviousSlide'
-import { ButtonToggleFullScreen } from 'app/atoms/ButtonToggleFullScreen'
-import { ButtonToggleGrid } from 'app/atoms/ButtonToggleGrid'
-import { ButtonToggleTheme } from 'app/atoms/ButtonToggleTheme'
+import {
+  ButtonToggleFullScreen,
+  PropsButtonToggleFullScreen,
+} from 'app/atoms/ButtonToggleFullScreen'
+import {
+  ButtonToggleTheme,
+  PropsButtonToggleTheme,
+} from 'app/atoms/ButtonToggleTheme'
 import { Divider } from 'app/atoms/Divider'
-import { Dispatch, SetStateAction } from 'react'
-import { SlideControlSlideShowDropdown } from './SlideControlSlideShowDropdown'
+
+type PropsSlideControlGroup = {
+  fullscreen: PropsButtonToggleFullScreen
+  slide: {
+    previous: () => void
+    isFirst: boolean
+    next: () => void
+    isEnd: boolean
+  }
+  theme: PropsButtonToggleTheme
+}
 
 export const SlideControlGroup = ({
-  openInFull,
-  toggleFullScreen,
-
-  openMenu,
-  setOpenMenu,
-
-  previous,
-  isFirst,
-  next,
-  isEnd,
-}: {
-  openInFull: boolean
-  toggleFullScreen: () => void
-
-  openMenu: boolean
-  setOpenMenu: Dispatch<SetStateAction<boolean>>
-
-  previous: () => void
-  isFirst: boolean
-  next: () => void
-  isEnd: boolean
-
-  // toggleGrid: () => void
-
-  // isPlaying: boolean
-  // play: () => void
-  // pause: () => void
-}) => {
+  fullscreen,
+  slide,
+  theme,
+}: PropsSlideControlGroup) => {
   return (
     <div
       className={`
@@ -45,50 +34,32 @@ export const SlideControlGroup = ({
         flex items-center p-2 gap-2
       `}
     >
-      <ButtonToggleFullScreen open={openInFull} onClick={toggleFullScreen} />
+      <ButtonToggleFullScreen
+        enabled={fullscreen.enabled}
+        toggle={fullscreen.toggle}
+      />
       <ButtonPreviousSlide
         onClick={() => {
-          setOpenMenu(false)
-          previous()
+          // setOpenMenu(false)
+          slide.previous()
         }}
-        disabled={isFirst}
+        disabled={slide.isFirst}
       />
       <ButtonNextSlide
         onClick={() => {
-          setOpenMenu(false)
-          next()
+          // setOpenMenu(false)
+          slide.next()
         }}
-        disabled={isEnd}
+        disabled={slide.isEnd}
       />
-      {/* TODO: Add slide grid view toggle */}
-      {/* <ButtonToggleGrid
-        onClick={() => {
-          setOpenMenu(false)
-          toggleGrid()
-        }}
-      /> */}
       <Divider orientation={'horizontal'} />
       <ButtonToggleTheme
-        onClickCallback={() => {
-          setOpenMenu(false)
+        isDarkMode={theme.isDarkMode}
+        toggle={() => {
+          // setOpenMenu(false)
+          theme.toggle()
         }}
       />
-      {/* TODO: Add controls control slide show (auto pagination) */}
-      {/* <div className='dropdown dropdown-top'>
-        <ButtonPlay
-          isPlaying={isPlaying}
-          onClick={() => {
-            setOpenMenu(!openMenu)
-          }}
-        />
-        <SlideControlSlideShowDropdown
-          isPlaying={isPlaying}
-          playOnClick={play}
-          pauseOnClick={pause}
-          menuOpen={openMenu}
-          setMenuOpen={setOpenMenu}
-        />
-      </div> */}
     </div>
   )
 }
