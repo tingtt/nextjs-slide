@@ -55,7 +55,7 @@ module.exports = {
     themes: [
       {
         hb: {
-          ...require('daisyui/src/colors/themes')['[data-theme=light]'],
+          ...require('daisyui/src/colors/themes')['[data-theme=business]'],
           primary: '#FF7E00',
           secondary: '#FFBD0D',
           accent: '#466EFF',
