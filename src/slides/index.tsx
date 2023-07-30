@@ -1,14 +1,22 @@
 /* eslint-disable react/jsx-key */
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Title } from 'slides/pages/Title'
-import { Animation1 } from 'slides/pages/Animation1'
-import { Animation2 } from 'slides/pages/Animation2'
-import { Summary } from 'slides/pages/Summary'
-import { End } from './pages/End'
 import { Slide } from '../../domain/model/Slide/slide'
+import { Title } from 'slides/pages/Title'
+import { SectionTitle } from './components/SectionTitle'
+import { End } from './pages/End'
 
-export const Slides: Slide[] = [Title, Summary, Animation1, Animation2, End]
+import { Outline } from 'slides/pages/Outline'
+import { SumUp } from './pages/SumUp'
+
+export const Slides: Slide[] = [
+  Title,
+  Outline,
+  SectionTitle('Section 1'),
+  SectionTitle('Sum up'),
+  SumUp,
+  End,
+]
 
 export const SlideContent = ({ page }: { page: number }) => {
   const router = useRouter()

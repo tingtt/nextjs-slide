@@ -14,6 +14,7 @@ export const SlideContainer = ({
       className={`
         slide-container relative overflow-hidden
         !min-w-[2016px] !min-h-[1134px] aspect-video
+        text-base
       `}
     >
       {children}
