@@ -30,7 +30,7 @@ export const SlideControlGroup = ({
     <div
       className={`
         bg-base-100 rounded-lg shadow-lg
-        border-[0.5px] border-slate-50 dark:border-stone-600
+        border-[0.5px] border-base-content border-opacity-10
         flex items-center p-2 gap-2
       `}
     >
