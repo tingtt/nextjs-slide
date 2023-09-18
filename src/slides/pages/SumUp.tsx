@@ -5,7 +5,7 @@ import { Header } from 'slides/components/Header'
 export const SumUp = new Slide(() => (
   <div className='layout-common flex-col'>
     <Header />
-    <div className='text-xl font-light'>Sum up</div>
+    <div className='text-xl font-light'>まとめ</div>
     <div className='flex flex-col h-[80%] justify-center pt-10'>
       <ul
         className={`
@@ -13,9 +13,8 @@ export const SumUp = new Slide(() => (
           [&>ul]:list-disc [&>ul]:list-inside [&>ul]:space-y-12 [&>ul]:ml-24
         `}
       >
-        <li>Point 1</li>
-        <li>Point 2</li>
-        <li>Point 3</li>
+        <li>一つずつ深掘りして原則原理を理解する</li>
+        <li>それぞれの技術を繋げてシステムを作る</li>
       </ul>
     </div>
     <PageNum className='absolute right-10 bottom-12' />

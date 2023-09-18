@@ -1,3 +1,5 @@
+import { ImgLogo } from './ImgLogo'
+
 export const Header = ({ text }: { text?: string }) => (
   <>
     <div className='absolute top-8 left-12 text-lg opacity-40'>
@@ -9,7 +11,7 @@ export const Header = ({ text }: { text?: string }) => (
         border-b-2 border-b-primary
       `}
     >
-      <div className='h-[80px]'>{/* some logo */}</div>
+      <ImgLogo />
     </div>
     <div className='h-32' />
   </>

@@ -10,6 +10,7 @@ module.exports = {
       xl: ['3.75rem', '1'],
       '2xl': ['4.5rem', '1'],
       '3xl': ['6rem', '1'],
+      '4xl': ['8rem', '1'],
     },
     extend: {
       keyframes: {
